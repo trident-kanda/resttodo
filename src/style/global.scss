@@ -1,0 +1,20 @@
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.title::after,
+.title::before {
+  content: "";
+  height: 1px;
+  flex-grow: 1;
+  background-color: rgba(59, 130, 246);
+}
+
+.title::after {
+  margin-left: 1rem;
+}
+
+.title::before {
+  margin-right: 1rem;
+}
