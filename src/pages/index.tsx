@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Layout from "../components/Layout";
 import Task from "../components/Task";
 import Title from "../components/Title";
@@ -11,11 +11,11 @@ import {
 import Add from "../components/Add";
 
 export default function Home() {
-  type usestate = {
+  type value = {
     id: number;
     name: string;
   };
-  const [list, setList] = useState<usestate[]>([]);
+  const [list, setList] = useState<value[]>([]);
 
   const deleteList = (id: number) => {
     setList(
@@ -24,6 +24,12 @@ export default function Home() {
       })
     );
   };
+  const setCallback = useCallback(
+    (value: value[]) => {
+      setList(value);
+    },
+    [setList]
+  );
 
   return (
     <Layout>
@@ -32,7 +38,7 @@ export default function Home() {
       </Head>
       <div className="bg-white h-screen shadow-lg p-6">
         <Title title={"LIST"} />
-        <setListContext.Provider value={setList}>
+        <setListContext.Provider value={setCallback}>
           <deleteContext.Provider value={deleteList}>
             <div className="px-14">
               {list.map((item) => {

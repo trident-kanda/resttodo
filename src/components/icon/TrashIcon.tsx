@@ -18,7 +18,9 @@ const TrashIcon = ({ width, height, color, id }: props) => {
       height={height}
       fill={color}
       onClick={() => {
-        deleteList(id);
+        if (deleteList) {
+          deleteList(id);
+        }
       }}
       className=" w-1/12 icon"
     >
