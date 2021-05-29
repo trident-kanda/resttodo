@@ -1,9 +1,15 @@
+import { useContext } from "react";
+import { deleteContext, setListContext } from "../../context/contexts";
+
 type props = {
   width: string | number;
   height: string | number;
   color: string;
+  id: number;
 };
-const TrashIcon = ({ width, height, color }: props) => {
+const TrashIcon = ({ width, height, color, id }: props) => {
+  const setList = useContext(setListContext);
+  const deleteList = useContext(deleteContext);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,6 +17,9 @@ const TrashIcon = ({ width, height, color }: props) => {
       width={width}
       height={height}
       fill={color}
+      onClick={() => {
+        deleteList(id);
+      }}
     >
       <path
         fillRule="evenodd"
