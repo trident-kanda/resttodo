@@ -10,7 +10,7 @@ const Button = ({ inputValue }: props) => {
 
   return (
     <button
-      className=" w-1/4 bg-gray-200 rounded-md ml-2 text-black hover:text-blue-500 hover:bg-blue-100"
+      className=" w-1/4 bg-gray-200 rounded-md ml-2 text-black hover:text-blue-500 hover:bg-blue-100 focus:outline-none"
       onClick={() => {
         const id = createid();
         if (setList) {
