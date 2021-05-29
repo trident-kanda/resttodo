@@ -20,6 +20,7 @@ const TrashIcon = ({ width, height, color, id }: props) => {
       onClick={() => {
         deleteList(id);
       }}
+      className=" w-1/12 icon"
     >
       <path
         fillRule="evenodd"

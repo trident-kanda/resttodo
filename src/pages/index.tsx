@@ -3,20 +3,19 @@ import { useState } from "react";
 import Layout from "../components/Layout";
 import Task from "../components/Task";
 import Title from "../components/Title";
-import Input from "../components/Input";
-import { deleteContext, setListContext } from "../context/contexts";
+import {
+  deleteContext,
+  listContext,
+  setListContext,
+} from "../context/contexts";
+import Add from "../components/Add";
 
 export default function Home() {
-  const [list, setList] = useState([
-    {
-      id: 1,
-      name: "勉強",
-    },
-    {
-      id: 2,
-      name: "運動",
-    },
-  ]);
+  type usestate = {
+    id: number;
+    name: string;
+  };
+  const [list, setList] = useState<usestate[]>([]);
 
   const deleteList = (id: number) => {
     setList(
@@ -41,11 +40,14 @@ export default function Home() {
               })}
             </div>
           </deleteContext.Provider>
+
+          <Title title={"ADD"} />
+          <div className="px-14">
+            <listContext.Provider value={list}>
+              <Add />
+            </listContext.Provider>
+          </div>
         </setListContext.Provider>
-        <Title title={"ADD"} />
-        <div className="px-14">
-          <Input />
-        </div>
       </div>
     </Layout>
   );
