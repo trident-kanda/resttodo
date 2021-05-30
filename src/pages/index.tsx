@@ -9,6 +9,7 @@ import {
   setListContext,
 } from "../context/contexts";
 import Add from "../components/Add";
+import { GetServerSideProps } from "next";
 
 export default function Home() {
   type value = {
@@ -58,3 +59,9 @@ export default function Home() {
     </Layout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {},
+  };
+};
