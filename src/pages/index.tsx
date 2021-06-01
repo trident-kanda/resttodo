@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Task from "../components/Task";
 import Title from "../components/Title";
@@ -10,14 +10,17 @@ import {
 } from "../context/contexts";
 import Add from "../components/Add";
 import { GetServerSideProps } from "next";
-
-export default function Home() {
-  type value = {
-    id: number;
-    name: string;
-  };
-  const [list, setList] = useState<value[]>([]);
-
+type value = {
+  id: number;
+  name: string;
+  state: boolean;
+};
+type props = {
+  data: value[];
+};
+const fetch = require("isomorphic-fetch");
+export default function Home({ data }: props) {
+  const [list, setList] = useState<value[]>(data);
   const deleteList = (id: number) => {
     setList(
       list.filter((item) => {
@@ -43,7 +46,14 @@ export default function Home() {
           <deleteContext.Provider value={deleteList}>
             <div className="px-14">
               {list.map((item) => {
-                return <Task task={item.name} key={item.id} id={item.id} />;
+                return (
+                  <Task
+                    task={item.name}
+                    key={item.id}
+                    id={item.id}
+                    state={item.state}
+                  />
+                );
               })}
             </div>
           </deleteContext.Provider>
@@ -61,7 +71,12 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const fetcher = (url: string): Promise<any> =>
+    fetch(url).then((res: any) => res.json());
+  const data = await fetcher("http://localhost:3000/api/getList");
   return {
-    props: {},
+    props: {
+      data,
+    },
   };
 };

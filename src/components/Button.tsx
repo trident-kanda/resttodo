@@ -19,6 +19,7 @@ const Button = ({ inputValue }: props) => {
             {
               id: id,
               name: inputValue,
+              state: false,
             },
           ]);
         }

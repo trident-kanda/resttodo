@@ -2,6 +2,7 @@ import { createContext } from "react";
 type list = {
     id:number,
     name:string
+    state:boolean
 }
 
 export const setListContext = createContext<undefined | ((value:list[])=>void)>(undefined)
