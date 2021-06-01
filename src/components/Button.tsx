@@ -11,8 +11,12 @@ const Button = ({ inputValue }: props) => {
   return (
     <button
       className=" w-1/4 bg-gray-200 rounded-md ml-2 text-black hover:text-blue-500 hover:bg-blue-100 focus:outline-none"
-      onClick={() => {
+      onClick={async () => {
         const id = createid();
+        const res = await fetch("/api/setList", {
+          method: "POST",
+          body: JSON.stringify({ id: id, name: inputValue, state: false }),
+        });
         if (setList) {
           setList([
             ...list,

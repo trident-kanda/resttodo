@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Layout from "../components/Layout";
 import Task from "../components/Task";
 import Title from "../components/Title";
@@ -72,7 +72,9 @@ export default function Home({ data }: props) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const fetcher = (url: string): Promise<any> =>
-    fetch(url).then((res: any) => res.json());
+    fetch(url)
+      .then((res: any) => res.json())
+      .catch((err: any) => console.log(err));
   const data = await fetcher("http://localhost:3000/api/getList");
   return {
     props: {
