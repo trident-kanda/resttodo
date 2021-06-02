@@ -9,7 +9,8 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     ])
 if(data){
     res.status(200).json({"state":"OK"});
-}else{
+}
+if(error){
     res.status(500).json({"state":"error"});
 }
 };

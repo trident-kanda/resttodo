@@ -15,8 +15,13 @@ const Task = ({ task, id, state }: props) => {
         type="checkbox"
         className=" w-1/12"
         ref={inputRef}
-        onChange={() => {
+        checked={nowstate}
+        onChange={async () => {
           changeState(inputRef.current.checked);
+          const res = fetch("/api/changeList", {
+            method: "PUT",
+            body: JSON.stringify({ id: id, state: inputRef.current.checked }),
+          });
         }}
       />
       {!nowstate && <h3 className="text-lg text-gray-500 w-10/12 ">{task}</h3>}
