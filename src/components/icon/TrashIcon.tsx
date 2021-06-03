@@ -8,7 +8,6 @@ type props = {
   id: number;
 };
 const TrashIcon = ({ width, height, color, id }: props) => {
-  const setList = useContext(setListContext);
   const deleteList = useContext(deleteContext);
   return (
     <svg
@@ -20,6 +19,10 @@ const TrashIcon = ({ width, height, color, id }: props) => {
       onClick={() => {
         if (deleteList) {
           deleteList(id);
+          const res = fetch("/api/deleteList", {
+            method: "DELETE",
+            body: JSON.stringify({ id: id }),
+          });
         }
       }}
       className=" w-1/12 icon"
