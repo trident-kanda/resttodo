@@ -16,10 +16,10 @@ const TrashIcon = ({ width, height, color, id }: props) => {
       width={width}
       height={height}
       fill={color}
-      onClick={() => {
+      onClick={async () => {
         if (deleteList) {
           deleteList(id);
-          const res = fetch("/api/deleteList", {
+          const res = await fetch("/api/deleteList", {
             method: "DELETE",
             body: JSON.stringify({ id: id }),
           });
