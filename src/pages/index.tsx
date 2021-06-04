@@ -18,7 +18,7 @@ type value = {
 type props = {
   data: value[];
 };
-const fetch = require("isomorphic-fetch");
+import fetch from "node-fetch";
 export default function Home({ data }: props) {
   const [list, setList] = useState<value[]>(data);
   const deleteList = (id: number) => {
@@ -70,12 +70,19 @@ export default function Home({ data }: props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const host = req.headers.host;
+  let url = "";
+  if (host === "localhost:3000") {
+    url = "http://localhost:3000/api/getList";
+  } else {
+    url = "https://resttodo.vercel.app/";
+  }
   const fetcher = (url: string): Promise<any> =>
     fetch(url)
       .then((res: any) => res.json())
       .catch((err: any) => console.log(err));
-  const data = await fetcher("http://localhost:3000/api/getList");
+  const data = await fetcher(url);
   return {
     props: {
       data,
