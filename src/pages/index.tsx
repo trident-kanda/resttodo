@@ -70,14 +70,8 @@ export default function Home({ data }: props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const host = req.headers.host;
-  let url = "";
-  if (host === "localhost:3000") {
-    url = "http://localhost:3000/api/getList";
-  } else {
-    url = "https://resttodo.vercel.app/";
-  }
+export const getServerSideProps: GetServerSideProps = async () => {
+  const url = "http://localhost:3000/api/getList";
   const fetcher = (url: string): Promise<any> =>
     fetch(url)
       .then((res: any) => res.json())
